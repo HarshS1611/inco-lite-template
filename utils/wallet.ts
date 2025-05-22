@@ -67,24 +67,15 @@ export const namedWallets: Record<string, ReturnType<typeof createWalletClient>>
     chain,
     transport: http(rpcUrl),
   }),
-  dave: createWalletClient({
-    account: mnemonicToAccount(MNEMONIC, { path: "m/44'/60'/0'/0/2" }),
-    chain,
-    transport: http(rpcUrl),
-  }),
-  carol: createWalletClient({
+  eve: createWalletClient({
     account: mnemonicToAccount(MNEMONIC, { path: "m/44'/60'/0'/0/3" }),
     chain,
     transport: http(rpcUrl),
   }),
-  john: createWalletClient({
-    account: mnemonicToAccount(MNEMONIC, { path: "m/44'/60'/0'/0/4" }),
-    chain,
-    transport: http(rpcUrl),
-  }),
+ 
 };
 
 console.log("✅ Named wallets created:");
 Object.entries(namedWallets).forEach(([name, client]) => {
-  console.log(`   - ${name}: ${client.account.address}`);
+  console.log(`   - ${name}: ${client.account?.address}`);
 });
