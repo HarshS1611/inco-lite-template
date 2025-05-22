@@ -62,7 +62,6 @@ contract RichestRevealer is Ownable {
 
         // Allow contract to access encrypted value
         e.allow(value, address(this));
-        e.allow(value, owner());
 
         emit WealthSubmitted(msg.sender);
     }
@@ -100,6 +99,7 @@ contract RichestRevealer is Ownable {
             zero,
             e.select(bIsRichest, one, two)
         );
+        e.allow (richestIndexEncrypted , address(this));
 
         resultComputed = true;
 
@@ -165,5 +165,10 @@ contract RichestRevealer is Ownable {
     /// Check if result has been revealed
     function isResultRevealed() external view returns (bool) {
         return resultRevealed;
+    }
+
+    function getRichestParticipant() external view returns (address) {
+        require(resultRevealed, "Result not revealed yet");
+        return richestParticipant;
     }
 }

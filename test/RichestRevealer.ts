@@ -5,20 +5,14 @@ import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 // @ts-ignore
 import { Lightning  } from "@inco/js/lite";
 import { HexString } from "@inco/js/dist/binary";
-import richestRevealerAbi from "../artifacts/contracts/RichestOne.sol/RichestRevealer.json";
+import richestRevealerAbi from "../artifacts/contracts/RichestRevealer.sol/RichestRevealer.json";
 import createContractInterface from "../utils/contractInterface";
 
 describe("RichestRevealer", function () {
-  let reEncryptor: any;
   async function deployFixture() {
     const chainId = publicClient.chain.id;
     console.log("Chain ID:", chainId);
     const incoConfig = Lightning.latest("testnet", chainId);
-
-    reEncryptor = await incoConfig.getReencryptor(wallet);
-    const reEncryptorAlice = await incoConfig.getReencryptor(namedWallets.alice);
-    const reEncryptorBob = await incoConfig.getReencryptor(namedWallets.bob);
-    const reEncryptoreve = await incoConfig.getReencryptor(namedWallets.eve);
 
     const deploymentTxHash = await wallet.deployContract({
       abi: richestRevealerAbi.abi,
@@ -136,38 +130,30 @@ describe("RichestRevealer", function () {
     });
   });
 
-  // describe("Reveal Request and Decryption", () => {
-  //   it("prevents non-owner from requesting reveal", async () => {
-  //     const { contract } = await loadFixture(deployFixture);
+  describe("Reveal Request and Decryption", () => {
+    it("prevents non-owner from requesting reveal", async () => {
+      const { contract } = await loadFixture(deployFixture);
 
-  //     await expect(
-  //       contract.write.requestRevealRichest({ account: namedWallets.alice })
-  //     ).to.be.rejected;
-  //   });
+      await expect(
+        contract.write.requestDecryption({ account: namedWallets.alice })
+      ).to.be.rejected;
+    });
     
-  //   it("should determine the richest participant directly after computeRichest", async () => {
-  //     const { contract, contractAddress } = await loadFixture(deployFixture);
+    it("should determine the richest participant directly after computeRichest", async () => {
+      const { contract, contractAddress } = await loadFixture(deployFixture);
 
+      // Request reveal richest
+      const txHash = await contract.write.requestDecryption({ account: wallet });
+      const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
+      expect(receipt.status).to.equal("success");
 
-  //     // Decrypt the richest index
-  //     const encryptedIndex = await contract.read.richestIndexEncrypted();
-  //     console.log("Encrypted index:", encryptedIndex);
-  //     // const richestIndex = await incoConfig.getUint256Value(encryptedIndex);
-  //     const richestIndex =  await reEncryptor({
-  //       handle : encryptedIndex.toString(),
-  //     });
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      const winnerAddress = await contract.read.richestParticipant();
 
-  //      console.log("Richest index:", richestIndex.value.toString());
-
-
-  //     // Get participants list
-  //     const participants = await contract.read.getParticipants();
-  //     const richestAddress = participants[richestIndex];
-
-  //     // Bob submitted 50, which is the highest
-  //     expect(richestAddress).to.equal(namedWallets.bob.account!.address);
-  //   });
+      // Bob submitted 50, which is the highest
+      expect(winnerAddress).to.equal(namedWallets.bob.account!.address);
+    });
     
-  // });
+  });
 
 });

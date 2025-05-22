@@ -20,11 +20,11 @@ function createContractInterface(address: Address, abi: any) {
             args: [],
             account: opts.account.account,
           }),
-          requestRevealRichest: async (opts: any) =>
+          requestDecryption: async (opts: any) =>
           wallet.writeContract({
             address,
             abi,
-            functionName: "requestRevealRichest",
+            functionName: "requestDecryption",
             args: [],
             account: opts.account.account,
           }),
@@ -74,6 +74,14 @@ function createContractInterface(address: Address, abi: any) {
             functionName: "getParticipants",
             args: [],
           }),
+          getRichestParticipant: async () =>
+          publicClient.readContract({
+            address,
+            abi,
+            functionName: "getRichestParticipant",
+            args: [],
+          }),
+        
       },
     };
   }
