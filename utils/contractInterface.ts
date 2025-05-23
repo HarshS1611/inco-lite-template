@@ -46,13 +46,6 @@ function createContractInterface(address: Address, abi: any) {
             functionName: "getParticipantCount",
             args: [],
           }),
-        richestIndexEncrypted: async () =>
-          publicClient.readContract({
-            address,
-            abi,
-            functionName: "richestIndexEncrypted",
-            args: [],
-          }),
         richestParticipant: async () =>
           publicClient.readContract({
             address,
@@ -60,12 +53,12 @@ function createContractInterface(address: Address, abi: any) {
             functionName: "richestParticipant",
             args: [],
           }),
-          getParticipant: async (index: number) =>
+          isResultRevealed: async () =>
           publicClient.readContract({
             address,
             abi,
-            functionName: "getParticipant",
-            args: [index],
+            functionName: "isResultRevealed",
+            args: [],
           }),
         getParticipants: async () =>
           publicClient.readContract({
@@ -74,14 +67,13 @@ function createContractInterface(address: Address, abi: any) {
             functionName: "getParticipants",
             args: [],
           }),
-          getRichestParticipant: async () =>
+          canRequestDecryption: async () =>
           publicClient.readContract({
             address,
             abi,
-            functionName: "getRichestParticipant",
+            functionName: "canRequestDecryption",
             args: [],
           }),
-        
       },
     };
   }

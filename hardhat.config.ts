@@ -9,6 +9,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY_BASE_SEPOLIA || "";
 const PRIVATE_KEY_ANVIL = process.env.PRIVATE_KEY_ANVIL || "";
 
 const BASE_SEPOLIA_RPC_URL = process.env.BASE_SEPOLIA_RPC_URL || "";
+const ETHERSCANE_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 
 const config: HardhatUserConfig = {
   solidity: {
@@ -38,7 +39,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    apiKey: "9H2V5N7SA4TPB32B4ZQT1NFNFT4BJ9YPQH"
+    apiKey: ETHERSCANE_API_KEY,
   },
   sourcify: {
     // Disabled by default
