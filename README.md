@@ -2,6 +2,13 @@
 
 A privacy-preserving smart contract that allows participants to submit **confidential encrypted values** (e.g., wealth) using [Inco's Lightning SDK](https://docs.inco.org/). It determines the **richest participant** without revealing individual values and enables a secure decryption reveal process.
 
+## Porject Links
+- [Frontend Repo 🔗](https://github.com/HarshS1611/richest-revealer)
+- [Smart Contract Walkthrough Video 🔗](https://www.loom.com/share/9aa614f058c94ad0bf696541270a80f6?sid=37953322-3e76-4137-95a5-19f5945426eb)
+- [Walkthrough video smart contract 🔗](https://sepolia.basescan.org/address/0x6adafc3cb7255b2539f01c2387096eb3c69e47ea)
+- [Frontend Walkthrough Video 🔗](https://www.loom.com/share/693d079657ac498c9f37b46a1c8ae488?sid=f2ac46df-d9af-4f8d-9a86-b67e4af33ce9)
+  
+---
 
 ## **Setup Instructions**
 
@@ -70,6 +77,14 @@ You can deploy the contract within a script or test:
 
 ```ts
  pnpm hardhat ignition deploy ignition/modules/RichestRevealer.ts --network baseSepolia
+```
+
+## ✅ Verify the Contract
+
+You can deploy the contract within a script or test:
+
+```ts
+ pnpm hardhat verify --network baseSepolia <deployed_contract_address>
 ```
 
 ## ✨ Smart Contract Features
