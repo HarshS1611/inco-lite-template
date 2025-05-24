@@ -24,6 +24,7 @@ describe("RichestRevealer", function () {
     });
 
     const contractAddress = receipt.contractAddress as Address;
+    console.log("Contract deployed at:", contractAddress);
     const contract = createContractInterface(contractAddress, richestRevealerAbi.abi);
 
     const val1 = await incoConfig.encrypt(10, {
@@ -157,7 +158,7 @@ describe("RichestRevealer", function () {
       const { contract } = await loadFixture(deployFixture);
 
 
-      await new Promise((resolve) => setTimeout(resolve, 25000)); // Wait for off-chain to simulate decryption
+      await new Promise((resolve) => setTimeout(resolve, 30000)); // Wait for off-chain to simulate decryption
 
       const revealed = await contract.read.isResultRevealed();
       expect(revealed).to.equal(true);
