@@ -99,7 +99,7 @@ describe("RichestRevealer", function () {
       ).to.be.rejectedWith("Max 3 participants allowed");
     });
 
-  
+
   });
 
   describe("Richest Computation", () => {
@@ -137,14 +137,14 @@ describe("RichestRevealer", function () {
   describe("Reveal Request and Decryption", () => {
     it("only allows owner to request decryption", async () => {
       const { contract } = await loadFixture(deployFixture);
-   
+
       await expect(
         contract.write.requestDecryption({ account: namedWallets.alice })
       ).to.be.rejected;
     });
 
     it("triggers decryption after computing richest", async () => {
-      const { contract} = await loadFixture(deployFixture);
+      const { contract } = await loadFixture(deployFixture);
 
       const txHash = await contract.write.requestDecryption({ account: wallet });
       const receipt = await publicClient.waitForTransactionReceipt({ hash: txHash });
@@ -152,18 +152,18 @@ describe("RichestRevealer", function () {
     });
   });
   /// * Uncomment this section if you want to test the decryption callback as it takes much time to decrypt until timeout
-  // describe("Richest Revealed", () => {
-  //   it("reveals the richest participant as Bob", async () => {
-  //     const { contract } = await loadFixture(deployFixture);
-     
+  describe("Richest Revealed", () => {
+    it("reveals the richest participant as Bob", async () => {
+      const { contract } = await loadFixture(deployFixture);
 
-  //     await new Promise((resolve) => setTimeout(resolve, 20000)); // Wait for off-chain to simulate decryption
 
-  //     const revealed = await contract.read.isResultRevealed();
-  //     expect(revealed).to.equal(true);
+      await new Promise((resolve) => setTimeout(resolve, 25000)); // Wait for off-chain to simulate decryption
 
-  //     const winner = await contract.read.getRichestParticipants();
-  //     expect(winner).to.equal(namedWallets.bob.account!.address);
-  //   });
-  // });
+      const revealed = await contract.read.isResultRevealed();
+      expect(revealed).to.equal(true);
+
+      const winner = await contract.read.getRichestParticipants() as string[];
+      expect(winner[0]).to.equal(namedWallets.bob.account!.address);
+    });
+  });
 });
