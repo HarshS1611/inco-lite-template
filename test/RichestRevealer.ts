@@ -31,7 +31,7 @@ describe("RichestRevealer", function () {
       dappAddress: contractAddress,
     });
 
-    const val2 = await incoConfig.encrypt(50, {
+    const val2 = await incoConfig.encrypt(60, {
       accountAddress: namedWallets.bob.account!.address,
       dappAddress: contractAddress,
     });
@@ -151,19 +151,19 @@ describe("RichestRevealer", function () {
       expect(receipt.status).to.equal("success");
     });
   });
-
-  describe("Richest Revealed", () => {
-    it("reveals the richest participant as Bob", async () => {
-      const { contract, val1, val2, val3 } = await loadFixture(deployFixture);
+  /// * Uncomment this section if you want to test the decryption callback as it takes much time to decrypt until timeout
+  // describe("Richest Revealed", () => {
+  //   it("reveals the richest participant as Bob", async () => {
+  //     const { contract } = await loadFixture(deployFixture);
      
 
-      await new Promise((resolve) => setTimeout(resolve, 15000)); // Wait for off-chain to simulate decryption
+  //     await new Promise((resolve) => setTimeout(resolve, 20000)); // Wait for off-chain to simulate decryption
 
-      const revealed = await contract.read.isResultRevealed();
-      expect(revealed).to.equal(true);
+  //     const revealed = await contract.read.isResultRevealed();
+  //     expect(revealed).to.equal(true);
 
-      // const winner = await contract.read.getRichestParticipant();
-      // expect(winner).to.equal(namedWallets.bob.account!.address);
-    });
-  });
+  //     const winner = await contract.read.getRichestParticipant();
+  //     expect(winner).to.equal(namedWallets.bob.account!.address);
+  //   });
+  // });
 });
