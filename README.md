@@ -87,7 +87,7 @@ You can deploy the contract within a script or test:
   Richest computation can only happen once. Re-submissions or recomputations are blocked.
 
 - 🧠 **Decryption Request & Reveal**  
-  Contract owner can request off-chain decryption using Inco, and submit the result using `decryptionCallback`.
+  Contract owner can request off-chain decryption using Inco Re-drcyptiono, and submit the result using `decryptionCallback`.
 
 - 🔎 **Public Read Access**  
   Anyone can query:
@@ -179,5 +179,3 @@ Located in `utils/contractInterface.ts`
 ---
 
 > This project is built with ❤️ using Solidity, Inco, Hardhat, and Viem.
-
-```
