@@ -162,7 +162,7 @@ describe("RichestRevealer", function () {
   //     const revealed = await contract.read.isResultRevealed();
   //     expect(revealed).to.equal(true);
 
-  //     const winner = await contract.read.getRichestParticipant();
+  //     const winner = await contract.read.getRichestParticipants();
   //     expect(winner).to.equal(namedWallets.bob.account!.address);
   //   });
   // });
